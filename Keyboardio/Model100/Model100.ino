@@ -330,8 +330,9 @@ static void versionInfoMacro(uint8_t key_state) {
  */
 
 static void anyKeyMacro(KeyEvent &event) {
+  static auto keyCode = Key_A.getKeyCode();
   if (keyToggledOn(event.state)) {
-    event.key.setKeyCode(Key_A.getKeyCode() + (uint8_t)(millis() % 36));
+    event.key.setKeyCode(keyCode++);
     event.key.setFlags(0);
   }
 }
