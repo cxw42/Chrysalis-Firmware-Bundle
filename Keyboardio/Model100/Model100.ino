@@ -29,7 +29,7 @@
 #endif
 
 /* How many layers we save room for in the EEPROM */
-#define LAYER_SPACE (8)
+#define LAYER_SPACE (5)
 
 /**
  * These #include directives pull in the Kaleidoscope firmware core,
@@ -521,9 +521,9 @@ void setup() {
   // We need to tell the Colormap plugin how many layers we want to have custom
   // maps for. To make things simple, we set it to eight layers, which is how
   // many editable layers we have (see above).
-  //ColormapEffect.max_layers(NUM_LAYERS);
-  //ColormapEffect.activate();
-  solidRed.activate();
+  ColormapEffect.max_layers(NUM_LAYERS);
+  ColormapEffect.activate();
+  //solidRed.activate();
 }
 
 /** loop is the second of the standard Arduino sketch functions.
