@@ -1,6 +1,12 @@
-Chrysalis-Firmware-Bundle 0.90.6-snapshot
+Chrysalis-Firmware-Bundle 0.91.0-snapshot
 =========================================
 **UNRELEASED**
+
+No changes yet.
+
+Chrysalis-Firmware-Bundle 0.90.6
+================================
+Released on 2022-10-22
 
 Keyboardio Model 100 & Model 01
 -------------------------------
@@ -16,6 +22,15 @@ Keyboardio Model 100
 Enabled the `OneShotConfig` plugin, which will let a future version of Chrysalis
 configure a number of settings related to the `OneShot` plugin, which implements
 the Sticky keys.
+
+The `LEDBrightnessConfig` plugin was also enabled, allowing Chrysalis to aid you
+in controlling the brightness of the LEDs present on the keyboard.
+
+The brightness of the rainbow LED effects were toned down a little, to mitigate
+the audible whine from the keyboard some users have been reporting.
+
+The `MouseKeysConfig` plugin received updates, and it now lets you configure the
+Warp grid size through Chrysalis.
 
 Keyboardio Atreus
 -----------------
