@@ -545,6 +545,14 @@ void setup() {
   // First, call Kaleidoscope's internal setup function
   Kaleidoscope.setup();
 
+  // We want to make sure that the firmware starts with LED effects off
+  // This avoids over-taxing devices that don't have a lot of power to share
+  // with USB devices
+  LEDOff.activate();
+
+  // LED-off timeout on idle: 3 min.
+  IdleLEDs.setIdleTimeoutSeconds(3*60);
+
   // While we hope to improve this in the future, the NumPad plugin
   // needs to be explicitly told which keymap layer is your numpad layer
   NumPad.numPadLayer = NUMPAD;
@@ -559,24 +567,17 @@ void setup() {
   // `keymap.onlyCustom` command to use EEPROM layers only.
   EEPROMKeymap.setup(NUM_LAYERS);
 
-  // We need to tell the Colormap plugin how many layers we want to have custom
-  // maps for. To make things simple, we set it to eight layers, which is how
-  // many editable layers we have (see above).
-  ColormapEffect.max_layers(NUM_LAYERS);
-
-  // If there's a default layer set in EEPROM, we should set that as the default
-  // here.
-  Layer.move(EEPROMSettings.default_layer());
-
-  // Unless configured otherwise with Chrysalis, we want to make sure that the
-  // firmware starts with LED effects off. This avoids over-taxing devices that
-  // don't have a lot of power to share with USB devices
-  DefaultLEDModeConfig.activateLEDModeIfUnconfigured(&LEDOff);
-
   // By default, use the keymap in this program, NOT the keymap in EEPROM.
   // This is because I am using substantially the same firmware here as on
   // my Model01.
   Layer.getKey = Layer.getKeyFromPROGMEM;
+
+  // We need to tell the Colormap plugin how many layers we want to have custom
+  // maps for. To make things simple, we set it to eight layers, which is how
+  // many editable layers we have (see above).
+  //ColormapEffect.max_layers(NUM_LAYERS);
+  //ColormapEffect.activate();
+  solidRed.activate();
 }
 
 /** loop is the second of the standard Arduino sketch functions.
