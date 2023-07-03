@@ -1,3 +1,4 @@
 [submodule "Kaleidoscope"]
 	path = lib/Kaleidoscope
 	url = git@github.com:cxw42/Kaleidoscope.git
+	branch = cxw42-model100-2023-07
