@@ -24,9 +24,25 @@ g_ToShift=0
 parse_command_line() {
     local OPTIND
     local option
-    while getopts "v-:" option "$@" ; do
+    while getopts "hv-:" option "$@" ; do
         case "$option" in
             # TODO add your short options
+            h)  cat <<EOT
+Common Keyboardio-firmware-development commands
+
+Usage: $0 [OPTIONS] CMD
+
+ -v, --verbose      Increase verbosity (may be given multiple times).
+                    At -vv, "make" becomes verbose.
+
+CMD can be:
+ setup: set up
+ make:  build the firmware
+ flash: flash the firmware
+ color: write the color/ data to EEPROM
+EOT
+                exit 0
+                ;;
 
             v)  ((++gVerbose)) ;;
 
@@ -54,14 +70,20 @@ main() {
 
     case "$cmd" in
         setup)  RUN make setup ;;
-        make)   
+        make)
+            mkdir -p .kaleidoscope-temp
             opts=("KALEIDOSCOPE_TEMP_PATH=$(realpath .kaleidoscope-temp)")
-            if (( gVerbose > 1 )); then 
+            if (( gVerbose > 1 )); then
                 opts+=('VERBOSE=1')
             fi
             RUN make Keyboardio/Model100 "${opts[@]}"
             ;;
         flash)  RUN dfu-util --device 0x3496:0005 -R -D ./output/Keyboardio/Model100/default.bin ;;
+        color)
+            RUN "$gHere/color/apply-file" "$gHere/color/cxw-palette.txt"
+            RUN "$gHere/color/apply-file" "$gHere/color/cxw-colormap.txt"
+            ;;
+
         *) die "Unknown command [$cmd]" ;;
     esac
 
